@@ -1,5 +1,6 @@
 package br.com.pugliese.authorization.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class RegisterUserRequest {
 
     @NotEmpty
-    private String firstname;
+    private String firstName;
 
     @NotEmpty
-    private String lastname;
+    private String lastName;
 
     @NotEmpty
     private String email;

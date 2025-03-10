@@ -2,9 +2,7 @@ package br.com.pugliese.authorization.entity;
 
 import br.com.pugliese.authorization.dto.user.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "_user")
 public class User implements UserDetails {
 
@@ -23,15 +23,19 @@ public class User implements UserDetails {
     @GeneratedValue
     private Integer id;
 
+    @Column(name = "first_name")
     private String firstname;
 
+    @Column(name = "last_name")
     private String lastname;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
 

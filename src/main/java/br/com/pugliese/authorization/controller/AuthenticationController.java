@@ -3,7 +3,6 @@ package br.com.pugliese.authorization.controller;
 import br.com.pugliese.authorization.dto.request.AuthenticationRequest;
 import br.com.pugliese.authorization.dto.request.TokenRequest;
 import br.com.pugliese.authorization.dto.response.AuthenticationResponse;
-import br.com.pugliese.authorization.dto.request.RegisterRequest;
 import br.com.pugliese.authorization.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +18,6 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
-        return ResponseEntity.ok(service.register(registerRequest));
-    }
-
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(service.authenticate(authenticationRequest));
@@ -33,6 +27,4 @@ public class AuthenticationController {
     public ResponseEntity<Boolean> validate(@RequestBody TokenRequest tokenRequest) {
         return ResponseEntity.ok(service.validate(tokenRequest));
     }
-
-
 }
