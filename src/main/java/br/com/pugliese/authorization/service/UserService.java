@@ -32,7 +32,7 @@ public class UserService {
                 savedUser.getEmail());
     }
 
-    public UserResponse updateUser(UpdateUserRequest updateUserRequest) {
+    public UserResponse updateUser(String authorizationHeader, UpdateUserRequest updateUserRequest) {
         return null;
     }
 }

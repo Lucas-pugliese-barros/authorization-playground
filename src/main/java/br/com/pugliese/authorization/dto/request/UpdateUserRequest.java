@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateUserRequest {
 
-    @NotEmpty
-    private String token;
-
     private String firstname;
 
     private String lastname;

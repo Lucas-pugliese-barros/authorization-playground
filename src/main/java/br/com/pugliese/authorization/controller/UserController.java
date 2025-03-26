@@ -23,8 +23,11 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserResponse> update(@RequestBody UpdateUserRequest updateUserRequest) {
-        UserResponse userResponse = service.updateUser(updateUserRequest);
+    public ResponseEntity<UserResponse> update(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody UpdateUserRequest updateUserRequest) {
+        UserResponse userResponse = service.updateUser(authorizationHeader, updateUserRequest);
+
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
