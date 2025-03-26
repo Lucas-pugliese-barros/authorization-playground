@@ -3,6 +3,7 @@ package br.com.pugliese.authorization.config;
 import org.springframework.context.annotation.Bean;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,10 +22,12 @@ public class SecurityConfiguration {
                 .requestMatchers(
                         "/v3/api-docs/**",
                         "/swagger-ui.html",
-                        "/api/v1/auth/**",
-                        "/api/v1/user/register",
-                        "/actuator/**",
-                        "/swagger-ui/**")
+                        "/swagger-ui/**",
+                        "/actuator/**")
+                .permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/user")
+                .permitAll()
+                .requestMatchers("/api/v1/auth/**")
                 .permitAll();
 
         return http.build();
