@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class UserController {
     )
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(
-            @RequestBody RegisterUserRequest registerUserRequest) {
+            @Valid @RequestBody RegisterUserRequest registerUserRequest) {
 
         UserResponse userResponse = service.register(registerUserRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
@@ -66,7 +67,7 @@ public class UserController {
     @PutMapping("/update")
     public ResponseEntity<UserResponse> update(
             @RequestHeader(name = "Authorization", required = true) String authorizationHeader,
-            @RequestBody UpdateUserRequest updateUserRequest) {
+            @Valid @RequestBody UpdateUserRequest updateUserRequest) {
 
         UserResponse userResponse = service.updateUser(authorizationHeader, updateUserRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);

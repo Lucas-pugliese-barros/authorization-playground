@@ -4,6 +4,7 @@ import br.com.pugliese.authorization.dto.request.AuthenticationRequest;
 import br.com.pugliese.authorization.dto.request.TokenRequest;
 import br.com.pugliese.authorization.dto.response.AuthenticationResponse;
 import br.com.pugliese.authorization.service.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,13 +20,15 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<AuthenticationResponse> authenticate(
+            @Valid @RequestBody AuthenticationRequest authenticationRequest) {
 
         return ResponseEntity.ok(service.authenticate(authenticationRequest));
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<Boolean> validate(@RequestBody TokenRequest tokenRequest) {
+    public ResponseEntity<Boolean> validate(
+            @Valid @RequestBody TokenRequest tokenRequest) {
 
         return ResponseEntity.ok(service.validate(tokenRequest));
     }
