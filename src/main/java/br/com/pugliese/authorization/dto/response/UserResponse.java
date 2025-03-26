@@ -1,4 +1,4 @@
-package br.com.pugliese.authorization.dto.request;
+package br.com.pugliese.authorization.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponse {
+
+    private Long id;
 
     private String firstName;
 

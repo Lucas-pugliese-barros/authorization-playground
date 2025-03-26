@@ -2,16 +2,15 @@ package br.com.pugliese.authorization.controller;
 
 import br.com.pugliese.authorization.dto.request.RegisterUserRequest;
 import br.com.pugliese.authorization.dto.request.UpdateUserRequest;
-import br.com.pugliese.authorization.dto.request.UserResponse;
+import br.com.pugliese.authorization.dto.response.UserResponse;
 import br.com.pugliese.authorization.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,7 +39,7 @@ public class UserController {
                     @ApiResponse(responseCode = "400", description = "Invalid request data")
             }
     )
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<UserResponse> register(
             @Valid @RequestBody RegisterUserRequest registerUserRequest) {
 
@@ -64,12 +63,13 @@ public class UserController {
                     @ApiResponse(responseCode = "400", description = "Invalid request data")
             }
     )
-    @PutMapping("/update")
+    @PutMapping("/{userId}")
     public ResponseEntity<UserResponse> update(
             @RequestHeader(name = "Authorization", required = true) String authorizationHeader,
+            @PathVariable Long userId,
             @Valid @RequestBody UpdateUserRequest updateUserRequest) {
 
-        UserResponse userResponse = service.updateUser(authorizationHeader, updateUserRequest);
+        UserResponse userResponse = service.updateUser(userId, authorizationHeader, updateUserRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 

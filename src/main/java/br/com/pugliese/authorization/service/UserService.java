@@ -1,7 +1,7 @@
 package br.com.pugliese.authorization.service;
 
 import br.com.pugliese.authorization.dto.request.*;
-import br.com.pugliese.authorization.dto.request.UserResponse;
+import br.com.pugliese.authorization.dto.response.UserResponse;
 import br.com.pugliese.authorization.dto.user.Role;
 import br.com.pugliese.authorization.entity.User;
 import br.com.pugliese.authorization.repository.UserRepository;
@@ -27,12 +27,13 @@ public class UserService {
 
         User savedUser = repository.save(user);
 
-        return new UserResponse(savedUser.getFirstname(),
+        return new UserResponse(savedUser.getId(),
+                savedUser.getFirstname(),
                 savedUser.getLastname(),
                 savedUser.getEmail());
     }
 
-    public UserResponse updateUser(String authorizationHeader, UpdateUserRequest updateUserRequest) {
+    public UserResponse updateUser(Long userId, String authorizationHeader, UpdateUserRequest updateUserRequest) {
         return null;
     }
 }
