@@ -9,10 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
+    private final AuthenticationService authenticationService;
+    private final JwtService jwtService;
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
@@ -31,9 +35,5 @@ public class UserService {
                 savedUser.getFirstname(),
                 savedUser.getLastname(),
                 savedUser.getEmail());
-    }
-
-    public UserResponse updateUser(Long userId, String authorizationHeader, UpdateUserRequest updateUserRequest) {
-        return null;
     }
 }

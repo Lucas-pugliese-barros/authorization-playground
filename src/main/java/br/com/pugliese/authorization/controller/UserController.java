@@ -4,6 +4,7 @@ import br.com.pugliese.authorization.dto.request.RegisterUserRequest;
 import br.com.pugliese.authorization.dto.request.UpdateUserRequest;
 import br.com.pugliese.authorization.dto.response.UserResponse;
 import br.com.pugliese.authorization.service.UserService;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -46,31 +47,4 @@ public class UserController {
         UserResponse userResponse = service.register(registerUserRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
-
-    @Operation(
-            summary = "Update user information",
-            description = "Updates the user's profile information",
-            security = @SecurityRequirement(name = "bearerAuth"),
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "User update data",
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = UpdateUserRequest.class))
-            ),
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "User updated successfully",
-                            content = @Content(schema = @Schema(implementation = UserResponse.class))),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid or missing token"),
-                    @ApiResponse(responseCode = "400", description = "Invalid request data")
-            }
-    )
-    @PutMapping("/{userId}")
-    public ResponseEntity<UserResponse> update(
-            @RequestHeader(name = "Authorization", required = true) String authorizationHeader,
-            @PathVariable Long userId,
-            @Valid @RequestBody UpdateUserRequest updateUserRequest) {
-
-        UserResponse userResponse = service.updateUser(userId, authorizationHeader, updateUserRequest);
-        return new ResponseEntity<>(userResponse, HttpStatus.OK);
-    }
-
 }
